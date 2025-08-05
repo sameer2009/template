@@ -34,6 +34,7 @@ class TemplateManager {
             'footer.html',
             'hero.html',
             'leaderCard.html',
+            'nav.html',
             'smallCard.html'
         ];
 
