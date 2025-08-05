@@ -42,7 +42,11 @@ class TemplateManager {
             try {
                 const content = await this.readTemplateFile(`digital india/${file}`);
                 if (content) {
-                    const name = file.replace(/\.html$/, '').replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    let name = file.replace(/\.html$/, '').replace(/([A-Z])/g, ' ').replace(/^./, str => str.toUpperCase());
+                    // Special case for card.html in digital india
+                    if (file === 'card.html') {
+                        name = 'Card Initiatives';
+                    }
                     templates.push({
                         id: `digital-india-${file}`,
                         name: name,
@@ -63,9 +67,7 @@ class TemplateManager {
             'card.html',
             'cardContainer.html',
             'heroSectionFullImg.html',
-            'heroSectionImg.html',
             'links.html',
-            'nav.html',
             'simpleFooter.html',
             'story.html',
             'vid.html',
@@ -77,13 +79,20 @@ class TemplateManager {
             try {
                 const content = await this.readTemplateFile(`hiroshima/${file}`);
                 if (content) {
-                    const name = file.replace(/\.html$/, '')
-                                   .replace(/([A-Z])/g, ' $1')
-                                   .replace(/^./, str => str.toUpperCase())
-                                   .replace('Hero Section Img', 'Hero Section with Image')
-                                   .replace('Hero Section Full Img', 'Full Hero Section with Image')
-                                   .replace('Vid', 'Video')
-                                   .replace('Vid Container', 'Video Container');
+                    let name = file.replace(/\.html$/, '')
+                                .replace(/([A-Z])/g, ' $1')
+                                .replace(/^./, str => str.toUpperCase())
+                                .replace('Hero Section Img', 'Hero Section with Image')
+                                .replace('Hero Section Full Img', 'Full Hero Section with Image')
+                                .replace('Vid', 'Video')
+                                .replace('Vid Container', 'Video Container');
+                    
+                    // Special cases for hiroshima templates
+                    if (file === 'card.html') {
+                        name = 'card master minds';
+                    } else if (file === 'cardContainer.html') {
+                        name = 'card container masterminds';
+                    }
                     
                     templates.push({
                         id: `hiroshima-${file}`,
