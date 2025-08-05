@@ -27,7 +27,7 @@ class TemplateManager {
     async scanTemplatesDirectory() {
         const templates = [];
         
-        // Digital India templates
+        // Digital India templates (Sameer's)
         const digitalIndiaFiles = [
             'card.html',
             'cardContainer.html',
@@ -126,6 +126,42 @@ class TemplateManager {
                 }
             } catch (error) {
                 console.error(`Error processing file ${file}:`, error);
+            }
+        }
+
+        // Add Utk's templates
+        const utkTemplateFiles = [
+            'animations.html',
+            'card.html',
+            'footer.html',
+            'hero section half image.html',
+            'nav with bg image.html',
+            'navbar.html'
+        ];
+
+        // Add Utk's templates
+        for (const file of utkTemplateFiles) {
+            try {
+                const content = await this.readTemplateFile(`template/template/${file}`);
+                if (content) {
+                    const name = file.replace(/\.html$/, '')
+                                   .replace(/([A-Z])/g, ' $1')
+                                   .replace(/-/g, ' ')
+                                   .replace(/\./g, ' ')
+                                   .replace(/\b\w/g, str => str.toUpperCase())
+                                   .replace(/\s+/g, ' ')
+                                   .trim();
+                    
+                    templates.push({
+                        id: `utk-${file.replace(/\s+/g, '-')}`,
+                        name: name,
+                        category: 'utk templates',
+                        content: content,
+                        user: 'utk'  // Mark as Utk's template
+                    });
+                }
+            } catch (error) {
+                console.error(`Error processing Utk's template ${file}:`, error);
             }
         }
 
